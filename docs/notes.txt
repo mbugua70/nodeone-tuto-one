@@ -1,0 +1,19 @@
+MongoDB Atlas
+-- is the developer data platform
+-- its is a database as a service.
+
+Replica Data - group of servers that hold data together
+--- it ensure data redundancy and high availability.
+
+cluster -- several MongoDB working together
+
+shared cluster
+-- small
+
+dedicated cluster
+-- larger and dedicated resources
+
+Atlas
+-- Operational insights
+-- backup with point in time restore
+-- online archive
