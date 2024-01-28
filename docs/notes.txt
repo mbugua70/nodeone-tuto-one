@@ -17,3 +17,185 @@ Atlas
 -- Operational insights
 -- backup with point in time restore
 -- online archive
+
+organizations - group and define users and teams
+              - grants access to projects.
+
+projects - allow you to define and organize resources
+
+- CLUSTER -- mangodb cloudbase developer base platform.
+
+notes:::
+   MongoDB Atlas is a developer data platform that stores your data in Atlas clusters, a global, multi-cloud database service. You also learned that the developer data platform has many features that enable you to build a wide variety of applications.
+
+You created a free Atlas account and deployed a free tier Atlas cluster by doing the following:
+
+Chose a shared cluster.
+
+Chose a major cloud provider to host your cluster.
+
+Used the region recommended by MongoDB as the location of database deployment.
+
+Prepared to connect to your cluster by adding a database user and password and an IP address to the IP Access list
+
+
+mongoDB and document model
+mongoDB - general purpose document database.
+
+
+common uses of mongodb
+  - ecommerce
+  - content management
+  - iot and time series
+  - trading and payment
+  - gaming
+  - real time analytic and AI
+  - mobile applications
+
+
+document - basic unit of data in mongodb
+collection - a grouping of document
+database - container for a collection
+
+mongodb database is at the core of the atlas( the developer data platform)
+
+document model
+-- displayed in json format
+-- stored in bson format.
+BSON- add additional data types that are unavailable in json
+
+ObjectID - used in mongodb to create unique ids
+
+Every document require an _id field that act as primary key
+- if not provided the mongoDB will automatically provide an ObjectID for the _id field
+
+By default mongoDB supports flexible schema model.
+-- Allows to show documents in different structures in the same collection
+-- flexible schema enable us to iterate quickly and evolve as our requirements change
+-- mongoDB supports polymorphic data.
+
+Atlas Data Explorer
+-- atlas built in tool that interact and manage data from the atlas UI
+
+
+MongoDB Data Modelling
+-- refers to how data is being stored and relationship that exist among different refrences
+
+   --- WHEN DEVELOPING YOUR DATABASE THIS ARE THE QUESTION YOU SHOULD ASK ---
+     - what does my applications
+     -  what data will I store
+     -  How will users access the data
+     -  What data will be the most valuable to me
+
+     Good data model
+     - help manage data
+     - make good use of cpu
+     - make queries more effincient
+     - reduce costs
+
+     Relationships type of Data.
+
+      -- one-to-one
+      -- one-to-many
+      -- many-to-many
+
+      Ways to model relationships
+      -embedding
+      -refrencing
+
+      one-to-one
+      - Relationship where one data set in one entity is connected exactly to another one data  in another set
+
+      one-to-many
+      - Relationship where one data entity in one set is connected to any number of  data entities in another set.
+
+      many-to-many
+      - relationship where any number of data entities in one set are connected to any nunber of data entities in another set
+
+      embedding
+      - we take related data and insert into our document
+      - used when referencing one-to-many or many-to-many
+
+      referencing
+      - we refer our document in another collection in our document
+
+      adv of embedding
+      - avoid join applications
+      - provide read perfomance for read operations
+      - allows developers to update related data in a single written operation
+
+      Reference/ linking/ data normalization
+      - save the _id of one document in another document as a link between the two.
+
+      optimium effinciency in:
+
+      - memory usage
+      - query result time
+      - cpu usage
+      - storage
+
+      unbounded document - document that grow infinitely
+
+      common schema anti patterns
+
+      - massive arrays
+      - massive numbers of collection
+      - bloated document
+      - unnecessary indexes
+      - query without indexes
+      - data that can be accessed together but stored in different collection
+
+      atlas tools
+       - data Explorer
+       - perfomance advisor
+
+       mongoDB connection string
+       -- allows us to connect to our cluster and to work with our data.
+       -- describe the host we will be using the option we will be using to connect to the mongoDB
+
+       - it can be used to connect from the mongoDB shell, compass, and applications
+
+       format for the connection
+       - standard format
+       - DNS seed list format
+
+       - standard format -
+       - used to connect to standalone clusters, replica sets or sharded format.
+
+       - DNS seed list format -
+       - provides DNS server list to our connection string
+
+
+-- connection strings and all that it entails  --
+
+mongodb+srv://myAtlasDBUser:<password>@myatlasclusteredu.kmyoknr.mongodb.net/?retryWrites=true&w=majority
+
+-- mongodb - as it appears it used to represent the mongoDB connection string
+-- mongoDB atlas uses DNS seed list behind it
+
+-- +srv - it sets the tls security option to true and tells the mongoDB to use the DNS seed list.
+
+-- myAtlasDBUser:<password> - this are the username and password key in when creating the mongoDB
+
+-- @myatlasclusteredu.kmyoknr.mongodb.net - reprent the host the optional port number. (27017)
+
+-- retryWrites=true&w=majority - represent any option you want to includes e.g connection timeout, tls and ssl,
+
+-- retrywrites = true = this one tells the mongoDB to retry when certain drivers
+
+
+-- CONNECTING TO A MONGODB ATLAS CLUSTER WITH MONGODB SHELL --
+-- mongoDB shell its node js wrapper enviroment.
+-- which will give it access to
+   --- javascript
+   -- variable
+   -- functions
+   -- loops
+   -- conditional statements
+
+
+   -- CONNECTING MONGODB ATLAS CLUSTER WITH COMPASS --
+   mongoDB compass - its graphical user interface used to query our data, analyze our data and compose our agreggation pipelines
+
+   mongoDB drivers --
+   -- allows application to connect to the database using connection string
