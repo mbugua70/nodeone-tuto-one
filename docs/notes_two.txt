@@ -1,0 +1,5 @@
+-- INSERTING DOCUMENTS IN MONGODB COLLECTIONS --
+METHOD USED
+
+-- insertOne() - used to insert one document to the database
+-- insertMany() - used to insert many into the document/ expect an array of documents
