@@ -2,4 +2,61 @@
 METHOD USED
 
 -- insertOne() - used to insert one document to the database
--- insertMany() - used to insert many into the document/ expect an array of documents
+-- insertMany() - used to insert many into the document/ expect an array of DOCUMENTS
+
+
+-- FINDING DOCUMENTS IN IN MONGODB COLLECTIONS --
+-- find() - used to retrieve data from the database
+-- $in - operator used to find / select all document that have field value equal to any of the values specified value.
+
+-- $eq - find a document with field and value
+
+--  COMPARISON OPERATORS --
+
+-- $gt - greater than - returns document where field is greater than the value specified
+-- $lt - less than - returns document where field is less than the value specified
+-- $gte - greater than or equal to  - return document with field greater than or equal to specified value
+-- $lte - less than or equal to - return document with field less than or equal to specified value
+
+   syntax ---
+      - <field> :{<operator> : <value>}
+
+      -- QUERY ARRAY IN DOCUMENTS --
+    -- $elemMath - finding doc in an array that match certain critea
+
+    -- LOGICAL OPERATORS --
+    $and -- syntax db.collection.find({<expression>,  <expression>})
+         -- syntax 2 db.collection.find({
+            $and: [{<expression>}, {<expression>}]
+         })
+
+    $or -
+
+    NOTE::
+      -- when including the same operator more than once in your query you need to use the explicit and operator
+
+      -- REPLACING, UPDATING, AND DELETING DOCUMENTS --
+       -- replaceOne() - this one its a method used to replace a single doc
+       -- it accepts three arquements
+       -- replaceOne(filter, replacement, options)
+
+
+      -- matchedCount - this one shows the number of doc that matched our filter
+      -- modifiedCount - refers to number of doc that was modified
+
+      example
+
+          db.books.replaceOne(
+  {
+    _id: ObjectId("6282afeb441a74a98dbbec4e"),
+  },
+  {
+    title: "Data Science Fundamentals for Python and MongoDB",
+    isbn: "1484235967",
+    publishedDate: new Date("2018-5-10"),
+    thumbnailUrl:
+      "https://m.media-amazon.com/images/I/71opmUBc2wL._AC_UY218_.jpg",
+    authors: ["David Paper"],
+    categories: ["Data Science"],
+  }
+)
