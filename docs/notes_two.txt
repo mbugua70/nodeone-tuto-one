@@ -60,3 +60,86 @@ METHOD USED
     categories: ["Data Science"],
   }
 )
+
+
+-- updateOne() --
+-- this one its a method used to udate the doc
+-- its used together with $set and $push operator
+-- its update a single doc
+
+ -- syntax --
+     -- db.collections.updateOne({
+      <filter>, - contains sections material for the update, this could be unique _id.
+      <update>, - contains an update operator expressions that will be used.
+      <option>
+     })
+
+     -- $set - add new field or value to the document.
+     -- replaced the specified value with the new value
+
+     $push - append the value to an array
+           - if absent $push will add the array field with value and its element
+
+
+ upsert -- used to insert a document with provided information if matching of the doc does not exist
+
+
+-- findAndModify() --
+-- used to return the document that has just been updated.
+-- this method accept doc as an arguement with several embeded doc field
+
+syntax ---
+    db.collections.findAndModify({
+      query: <Object id>,
+      update: {$inc: {downloads: 1}},
+      new: true
+    })
+
+
+-- updateMany() --
+-- used to update many document in a collection
+-- accept the following arguement
+    -- filter doc - selection criteria
+    -- update doc
+    -- option object
+
+
+ --- when to use it
+   - not an all or nothing operation - if some of the update fails you will have to run the updateMany() again
+
+
+   -- limit, sorting, and projection --
+   methods used are:
+      -- sort()
+      -- limit()
+      -- cursor - is a pointer to the result set of a query
+      find() will return a cursor
+
+      example
+         db.collection.find({category_code: "music"}).sort({name: 1})
+         capital letter will sorted first then followed by small letter
+
+         -- using projection
+         db.collection.find({category_code: "music", name: 1}).sort({name: 1})
+
+         example:::
+          -- limit(3) -- this will limit the doc into only three document
+
+          -- projection --
+          -- help to only return only the numbers of field we need from the MongoDB database.
+
+          example ---
+          db.collection.find({sector: "restaurant - 818"}, {business_name: 1, result: 1, id: 0})
+
+          - The above code will give us the result for restaurant, and only the business_name field result and will exclude the id.
+
+          NB::: TO INCLUDE FIELDS
+          - we set the values to 1
+
+                TO EXCLUDE FIELDS
+          - we set the values to 0
+
+
+          -- COUNT DOCUMENTS --
+          -- db.collection.countDocuments()
+          -- takes the two arguement <query> and the <options>
