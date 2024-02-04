@@ -1,0 +1,110 @@
+-- AGGREGATION --
+-- is the summary and analysis of data.
+
+-- AGGREGATION STAGE --
+-- agregation operation perfomed on then.
+
+-- AGGREGATION PIPELINE --
+- They are series of stages completed one at a time.
+-- consist of multiple stages
+
+  -- example --
+  db.collection.aggregate([
+    { $stage: {<expression>}},
+    { $stage: {<expression>}}
+  ])
+
+  -- STAGE --
+  - is the single operation on the data
+
+  -- example of stages
+    - $match - filters for data that matches the criteria/ filter for doc matching the criteria
+    - $group - group doc based on certain criteria/ create a single doc for each distinct  value
+    - $sort - puts the documents in a specified order
+
+
+example
+---   db.sales.aggregate([
+  {$match: {"state": "CA"}}
+])
+
+::NB - when using the $match stage place it as early as possible in the pipeline so it can use the index.
+    - reduces amount of documents and it also lessens the amount of processing required.
+
+
+example
+:: $group
+
+db.sales.aggregate([
+  $match // code
+  {
+    $group: {
+      _id: "$city", group key
+      totalZip: {$count: {}}
+    }
+  }
+])
+
+
+$sort and $limit
+- can be used to find documents with the top and bottom values in the data dataset.
+
+$sort - sort all the input docs and passes them to the next pipeline stage in sorted order.
+      - The $sort stage sorts all input documents and returns them to the pipeline in sorted order
+$limit - The $limit stage returns only a specified number of records.
+
+examples
+{
+    $sort: {
+        "field_name": 1
+    }
+}
+
+{
+  $limit: 5
+}
+
+$project, $set and $count
+
+- $project - determine the output shape.
+- should be the last stge to output
+- can be specified either inclusion or exclusion.
+- The $project stage specifies the fields of the output documents. 1 means that the field should be included, and 0 means that the field should be supressed. The field can also be assigned a new value.
+
+examples
+ {
+    $project: {
+        state:1,
+        zip:1,
+        population:"$pop",// additional of new value
+        _id:0
+    }
+}
+
+- $set - adds or modifies the field in a pipeline.
+- used to chnge the existing field in a pipeline or add upcoming new one in a pipeline
+- The $set stage creates new fields or changes the value of existing fields, and then outputs the documents with the new fields.
+
+exmples
+{
+    $set: {
+        place: {
+            $concat:["$city",",","$state"]
+        },
+        pop:10000
+     }
+  }
+
+- $count - counts the number doc in a pipeline and return the total number of docs
+- The $count stage creates a new document, with the number of documents at that stage in the aggregation pipeline assigned to the specified field name.
+
+examples
+{
+  $count: "total_zips"
+}
+
+
+-- $out --
+- writes the docs returned by the aggregation pipeline into a new collection.
+- it create a new collection if it does not already exist.
+- it comes as the last stage in the aggregration pipeline
