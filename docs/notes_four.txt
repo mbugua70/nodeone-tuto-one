@@ -87,4 +87,49 @@ db.collection.dropIndex({index})
 ::NB dropIndexes() - can be used to delete many indexes
 
 -- ACID IN mongoDB IN TRANSANCTIONS --
--
+-system that move funds - such as mobile payments
+- system that track inventory - such as online shopping
+- system that track payments - biling software.
+
+- ACID Transaction - are group of database operations that will be completed as a unit or not at all.
+- ACID - ATOMICITY - CONSISTENCY - ISOLATION - DURABILITY
+- ATOMICITY - all operation will either succeed or fail together.
+- CONSISTENCY - means all changes made by the operation need to be consistence with the database contraints.
+- ISOLATION - multiple transaction can happen in the same time without affecting the transaction of other TRANSANCTIONS
+- DURABILITY - all changes made by the operation will persist no matter what.
+
+-- SINGLE AND MULTI ACID transactions in mongoDB --
+- single-documents operation are already atomic in mongoDB
+- multi documents operation are not inherently atomic
+  - mongoDB locs  resources involved in transactions
+  - incur perfomance cost and affect latency
+
+  -- SESSION --
+  - Are group of database operation that should run together and related to one another
+  ACID transactions in MongoDB are typically used only by applications where values are exchanged between different parties, such as banking or business applications. If you find yourself in a scenario where a multi-document transaction is required, it's very likely that you will complete a transaction with one of MongoDB's drivers. For now, let's focus on completing and canceling multi-document transactions in the shell to become familiar with the steps.
+
+  use of transaction
+  const session = db.getMongo().startSession()
+
+session.startTransaction()
+
+const account = session.getDatabase('< add database name here>').getCollection('<add collection name here>')
+
+//Add database operations like .updateOne() here
+
+session.commitTransaction()
+
+
+Aborting a Transaction
+If you find yourself in a scenario that requires you to roll back database operations before a transaction is completed, you can abort the transaction. Doing so will roll back the database to its original state, before the transaction was initiated.
+
+example
+const session = db.getMongo().startSession()
+
+session.startTransaction()
+
+const account = session.getDatabase('< add database name here>').getCollection('<add collection name here>')
+
+//Add database operations like .updateOne() here
+
+session.abortTransaction()
